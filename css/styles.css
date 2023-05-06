@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+}
+.header {
+    padding: 0 2rem 0 2rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .5rem;
+    border-bottom: 1px solid gray;
+}
+.log i {
+    font-size: 3rem;
+}
+.main {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 992px;
+}
+.randon-cats, 
+.favorite-cats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cats-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.cats-images img {
+    width: 200px;
+    height: 200px;
+}
+.card-cat {
+    display: flex;
+    flex-direction: column;
+}
+.btn-favorite {
+    margin: .5rem 0 .5rem 0;
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+button {
+    margin: 1rem;
+    border: none;
+    padding: 1rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}

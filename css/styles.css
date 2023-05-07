@@ -31,22 +31,26 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-.cats-images {
+.cats-random,
+.cats-favorite {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 1rem;
 }
-.cats-images img {
+.cats-random img,
+.cats-favorite img {
     width: 200px;
     height: 200px;
 }
-.card-cat {
+.card-cat,
+.card-favorite-cat {
     display: flex;
     flex-direction: column;
 }
-.btn-favorite {
+.btn-favorite,
+.btn--remove-favorite {
     margin: .5rem 0 .5rem 0;
     padding: .5rem;
     display: flex;
@@ -54,6 +58,14 @@ html, body {
     align-items: center;
     gap: .5rem;
 }
+.btn--remove-favorite {
+    background-color: #d27676;
+}
+.btn--remove-favorite:hover {
+    background-color: red;
+    color: white;
+}
+
 button {
     margin: 1rem;
     border: none;

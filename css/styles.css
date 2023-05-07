@@ -39,8 +39,9 @@ html, body {
     align-items: center;
     gap: 1rem;
 }
-.cats-random img,
-.cats-favorite img {
+
+.random-cat-image,
+.favorite-cat-image {
     width: 200px;
     height: 200px;
 }

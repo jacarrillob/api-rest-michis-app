@@ -8,8 +8,8 @@ const API_URL_FAVORITE ='https://api.thecatapi.com/v1/images/favourites?limit=10
 //         img.src = data[0].url
 //     })
 
-async function loadRandomCats() {
-    removeImages()
+async function getRandomCatImages() {
+    removerandonCatImages()
     removeBtnFavorite()
     removeimgContent()
     const res = await fetch(`${API_URL_BASE}images/search?limit=10&api_key=${API_KEY}`)
@@ -19,12 +19,12 @@ async function loadRandomCats() {
         error.innerHTML = 'Hubo un error: ' + res.status + ' ' + data.message
     }else {
         const data = await res.json()
-        generateRandomCat(data)
+        addRandomCatImage(data)
     }
     
 }
 
-async function getFavouriteCats() {
+async function getAllFavouriteCatImages() {
     const res = await fetch(`${API_URL_BASE}favourites?limit=10&api_key=${API_KEY}`)
     
     if (res.status !== 200 ) {
@@ -32,7 +32,7 @@ async function getFavouriteCats() {
         errorFavorite.innerHTML = 'Hubo un error: ' + res.status + ' ' + data.message
     }else {
         const data = await res.json()
-        loadFavoriteCat(data)
+        addFavoriteCatImage(data)
     }
 }
 
@@ -52,7 +52,7 @@ async function saveFavouriteCat(id) {
         const errorFavorite = document.querySelector('.error-favorite')
         errorFavorite.textContent = 'Hubo un error: ' + res.status + ' ' + data.message
     }else {
-        getFavouriteCats()
+        getAllFavouriteCatImages()
     }
 }
 
@@ -70,11 +70,11 @@ async function removeFavouriteCat(id) {
         errorFavorite.innerHTML = 'Hubo un error: ' + res.status + ' ' + data.message
     }else {
         alert('Michi borrado correctamente...')
-        getFavouriteCats()
+        getAllFavouriteCatImages()
     }
 }
 
-function generateRandomCat(data) {
+function addRandomCatImage(data) {
     data.forEach((element, index) => {
         const catImages = document.querySelector('.cats-random')
         const img = document.createElement('img')
@@ -93,6 +93,7 @@ function generateRandomCat(data) {
         }) 
         img.src = element.url
         img.alt = 'Imagen de gato_' + index
+        img.classList.add('random-cat-image')
         imgContent.appendChild(img)
         imgContent.appendChild(btnAddFavorite)
         catImages.appendChild(imgContent)
@@ -100,7 +101,7 @@ function generateRandomCat(data) {
     
 }
 
-function loadFavoriteCat(data) {
+function addFavoriteCatImage(data) {
     const catFavorite = document.querySelector('.cats-favorite')
     catFavorite.innerHTML = ''
     data.forEach((element, index) => {
@@ -118,6 +119,7 @@ function loadFavoriteCat(data) {
         btnRemoveFavorite.onclick = () => removeFavouriteCat(element.id)
         img.src = element.image.url
         img.alt = 'Imagen de gato_' + index
+        img.classList.add('favorite-cat-image')
         containerFavorite.appendChild(img)
         containerFavorite.appendChild(btnRemoveFavorite)
         catFavorite.appendChild(containerFavorite)
@@ -132,8 +134,8 @@ function removeimgContent () {
     })
 }
 
-function removeImages () {
-    const images = document.querySelectorAll('img')
+function removerandonCatImages () {
+    const images = document.querySelectorAll('.random-cat-image')
     images.forEach(element => {
         element.remove()
     })
@@ -146,5 +148,5 @@ function removeBtnFavorite () {
     })
 }
 
-loadRandomCats()
-getFavouriteCats()
+getRandomCatImages()
+getAllFavouriteCatImages()

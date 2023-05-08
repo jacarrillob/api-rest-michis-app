@@ -12,26 +12,32 @@ async function getRandomCatImages() {
     removerandonCatImages()
     removeBtnFavorite()
     removeimgContent()
-    const res = await fetch(`${API_URL_BASE}images/search?limit=10&api_key=${API_KEY}`)
+    const res = await fetch(`${API_URL_BASE}images/search?limit=10`)
+    const data = await res.json()
     
     if (res.status !== 200 ) {
         const error = document.querySelector('.error')
         error.innerHTML = 'Hubo un error: ' + res.status + ' ' + data.message
     }else {
-        const data = await res.json()
         addRandomCatImage(data)
     }
     
 }
 
 async function getAllFavouriteCatImages() {
-    const res = await fetch(`${API_URL_BASE}favourites?limit=10&api_key=${API_KEY}`)
-    
+    const res = await fetch(`${API_URL_BASE}favourites?limit=10`, {
+        method: 'GET',
+        headers: {
+            'x-api-key': API_KEY,
+        }
+    })
+
+    const data = await res.json();
+
     if (res.status !== 200 ) {
         const errorFavorite = document.querySelector('.error-favorite')
         errorFavorite.innerHTML = 'Hubo un error: ' + res.status + ' ' + data.message
     }else {
-        const data = await res.json()
         addFavoriteCatImage(data)
     }
 }

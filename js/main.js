@@ -154,5 +154,29 @@ function removeBtnFavorite () {
     })
 }
 
+async function loadMichi(){
+    const fileInput = document.querySelector('#formLoadMichi') ;
+    const formData = new FormData(fileInput);
+
+    const res = await fetch(`${API_URL_BASE}images/upload`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'x-api-key': API_KEY,
+            // 'Content-Type': 'multipart/form-data',
+        }
+    })
+    const data = await res.json()
+
+    if (res.status !== 201 ) {
+        const errorFavorite = document.querySelector('.error-favorite')
+        errorFavorite.innerHTML = 'Hubo un error: ' + res.status + ' ' + data.message
+    }else {
+        alert('Michi agregado correctamente...')
+        saveFavouriteCat(data.id)
+    }
+    
+}
+
 getRandomCatImages()
 getAllFavouriteCatImages()

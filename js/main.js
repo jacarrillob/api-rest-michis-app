@@ -1,3 +1,11 @@
+const api = axios.create({
+    baseURL: 'https://api.thecatapi.com/v1/',
+    timeout: 1000,
+    headers: {
+        'x-api-key': 'live_WVJXjzwxbPGt3q5Hg2KPnRfj3Mg3YYE4umyWN0CFkHrlL7LWY64HbmTkbWF2JleQ'
+    }
+  });
+
 const API_URL_BASE = 'https://api.thecatapi.com/v1/'
 const API_KEY = 'live_WVJXjzwxbPGt3q5Hg2KPnRfj3Mg3YYE4umyWN0CFkHrlL7LWY64HbmTkbWF2JleQ'
 const API_URL_FAVORITE ='https://api.thecatapi.com/v1/images/favourites?limit=10&api_key=live_WVJXjzwxbPGt3q5Hg2KPnRfj3Mg3YYE4umyWN0CFkHrlL7LWY64HbmTkbWF2JleQ'
@@ -43,20 +51,13 @@ async function getAllFavouriteCatImages() {
 }
 
 async function saveFavouriteCat(id) {
-    const res = await fetch(`${API_URL_BASE}favourites`, {
-        method: 'POST',
-        headers: {
-            'x-api-key': API_KEY,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            image_id: id
-        }),
-    })
-    const data = await res.json()
-    if (res.status !== 200 ) {
-        const errorFavorite = document.querySelector('.error-favorite')
-        errorFavorite.textContent = 'Hubo un error: ' + res.status + ' ' + data.message
+    const { data, status } = await api.post('favourites', {
+        image_id: id
+      })
+
+    if (status !== 200 ) {
+    const errorFavorite = document.querySelector('.error-favorite')
+    errorFavorite.innerHTML = 'Hubo un error: ' + status + ' ' + data.message
     }else {
         getAllFavouriteCatImages()
     }
